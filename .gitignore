@@ -1,0 +1,95 @@
+# ─────────────────────────────────────────────
+# 📦 Dependencias
+# ─────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# ─────────────────────────────────────────────
+# 🏗️ Build / dist
+# ─────────────────────────────────────────────
+dist/
+build/
+out/
+*.tsbuildinfo
+.nest/
+
+# ─────────────────────────────────────────────
+# 🔐 Variables de entorno
+# ─────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ─────────────────────────────────────────────
+# 🧬 Prisma (cliente generado)
+# ⚠️ Ajusta la ruta al `output` real de tu generator
+# ─────────────────────────────────────────────
+src/generated/prisma/
+generated/
+.prisma/
+
+# ─────────────────────────────────────────────
+# 🧪 Tests / coverage
+# ─────────────────────────────────────────────
+coverage/
+.nyc_output/
+*.lcov
+
+# ─────────────────────────────────────────────
+# 🪵 Logs
+# ─────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ─────────────────────────────────────────────
+# 💻 Sistema operativo
+# ─────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ─────────────────────────────────────────────
+# 🧠 Editores / IDEs (personales)
+# ─────────────────────────────────────────────
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+*.sublime-workspace
+*.sublime-project
+
+# ─────────────────────────────────────────────
+# 🤖 Agentes IA / LLMs (NUNCA versionar)
+# ─────────────────────────────────────────────
+.agents/
+.claude/
+.cursor/
+.aider*
+.continue/
+.codeium/
+.windsurf/
+.tabnine/
+.zed/
+llm.txt
+.claude.json
+
+# ─────────────────────────────────────────────
+# 🗂️ Misc
+# ─────────────────────────────────────────────
+.tmp/
+.temp/
+.cache/

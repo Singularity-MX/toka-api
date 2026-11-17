@@ -1,0 +1,71 @@
+generator client {
+  provider               = "prisma-client"
+  output                 = "../generated/prisma"
+  moduleFormat           = "cjs"
+  generatedFileExtension = "ts"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ───── Estado de la parcela ─────
+enum ParcelStatus {
+  ACTIVE
+  FALLOW
+  INACTIVE
+  ARCHIVED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  firebaseUid  String   @unique
+  email        String   @unique
+  nombre       String?
+  photoURL     String?
+  provider     String   @default("google")
+  createdAt    DateTime @default(now())
+  lastLoginAt  DateTime @updatedAt
+
+  priorities        String[]   @default([])
+  rotationPlan      Json?
+  configCompletedAt DateTime?
+
+  rotations Rotation[]
+  parcels   Parcel[]
+
+  @@index([firebaseUid])
+}
+
+model Rotation {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  parcel       String
+  previousCrop String
+  currentCrop  String
+  nextCrop     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([userId, parcel])
+}
+
+model Parcel {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name    String
+  polygon Json   // GeoJSON Polygon
+  status  ParcelStatus @default(ACTIVE)   // 👈 NUEVO
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([userId, status])   // 👈 para filtrar por estado
+}

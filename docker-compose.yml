@@ -1,0 +1,25 @@
+services:
+  toka-api:
+    build: .
+    container_name: toka-api
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+    # Solo accesible desde el propio server (Nginx hace el proxy)
+    ports:
+      - "127.0.0.1:${PORT:-8000}:${PORT:-8000}"
+    # Necesario si tu Postgres corre en el host y no en Docker
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # Uso puntual: docker compose --profile tools run --rm migrate
+  migrate:
+    build:
+      context: .
+      target: builder
+    env_file: .env
+    command: npx prisma migrate deploy
+    profiles: ["tools"]
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
